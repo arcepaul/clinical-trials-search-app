@@ -82,6 +82,7 @@ const ErrorPage = ({ initErrorsList }) => {
         <title>
           Clinical Trials Search - National Cancer Institute
         </title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
         <meta property="og:title" content="Clinical Trials Search" />
 
         <meta

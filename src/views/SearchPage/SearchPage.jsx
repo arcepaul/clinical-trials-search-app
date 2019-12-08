@@ -142,6 +142,7 @@ const SearchPage = ({ formInit = 'basic' }) => {
         <title>
           {`Find NCI-Supported Clinical Trials - ${formFactor === 'advanced' ? 'Advanced Search - ' : ''}National Cancer Institute`}
         </title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
         <link
           rel="canonical"
           href={`https://www.cancer.gov/about-cancer/treatment/clinical-trials/search${

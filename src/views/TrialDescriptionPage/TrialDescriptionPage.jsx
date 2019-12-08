@@ -261,6 +261,7 @@ const TrialDescriptionPage = ({ location }) => {
       {!isTrialLoading && (
         <Helmet>
           <title>{trial.briefTitle}</title>
+          <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
           <meta property="og:title" content={trial.briefTitle} />
           <link
             rel="canonical"

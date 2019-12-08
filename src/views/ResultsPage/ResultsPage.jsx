@@ -329,6 +329,7 @@ const ResultsPage = ({ location }) => {
         <title>
           Clinical Trials Search Results - National Cancer Institute
         </title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
         <meta property="og:title" content="Clinical Trials Search Results" />
         <link
           rel="canonical"
