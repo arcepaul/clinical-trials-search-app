@@ -16,9 +16,9 @@ import {
   TrialType,
   ZipCode,
 } from '../../components/search-modules';
+import { trackedEvents } from '../../tracking';
 import { history } from '../../services/history.service';
 import { updateFormField, clearForm, receiveData } from '../../store/actions';
-import track from 'react-tracking';
 
 //Module groups in arrays will be placed side-by-side in the form
 const basicFormModules = [CancerTypeKeyword, [Age, ZipCode]];
@@ -40,7 +40,7 @@ const SearchPage = ({ formInit = 'basic', tracking }) => {
   const sentinelRef = useRef(null);
   const [formFactor, setFormFactor] = useState(formInit);
   const {hasInvalidAge, hasInvalidZip} = useSelector(store => store.form)
-
+  
   const handleUpdate = (field, value) => {
     dispatch(
       updateFormField({
@@ -62,13 +62,21 @@ const SearchPage = ({ formInit = 'basic', tracking }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
+    const { FindTrialsButtonClick } = trackedEvents;
+    FindTrialsButtonClick.data.formType = formFactor;
     if(!hasInvalidAge && !hasInvalidZip){
       dispatch(receiveData(
         'selectedTrialsForPrint',
         []
       ));
+      FindTrialsButtonClick.data.status = 'complete';
+      tracking.trackEvent(FindTrialsButtonClick);
       history.push('/about-cancer/treatment/clinical-trials/search/r');
+      return;
     }
+    FindTrialsButtonClick.data.status = 'error';
+    FindTrialsButtonClick.data.message = 'attempted form submit with errors';
+    tracking.trackEvent(FindTrialsButtonClick);
     
   };
 
@@ -247,6 +255,4 @@ const SearchPage = ({ formInit = 'basic', tracking }) => {
   );
 };
 
-export default track({
-  page: window.location.pathname,
-})(SearchPage);
+export default SearchPage;
